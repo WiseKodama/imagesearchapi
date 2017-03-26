@@ -33,9 +33,9 @@ app.get('/',function(req,res){
 app.get('/api/imagesearch/:query',function(req,res){
    var imgQuery = req.params.query;
    var resObj = '';
-   var newLog = qLog({date:new Date(),query:imgQuery,offset:req.query.offset});
+   var newLog = new qLog({date:new Date(),query:imgQuery,offset:req.query.offset});
    newLog.save(function(err){
-       if(err) console.error(err);
+       if(err) return console.error(err);
        console.log('Added query to database');
    });
    imageSearch(imgQuery,function(data){
@@ -51,9 +51,9 @@ app.get('/api/imagesearch/:query',function(req,res){
 app.get('/api/latest/imagesearch',function(req,res){
     var latestInfo = '';
 qLog.find().sort({date:-1}).exec(function(err,docs){
-    if(err) console.error(err);
+    if(err) return console.error(err);
     for(var x = 0;x < docs.length;x++){
-        latestInfo += "<h5 style='color:#CFD8DC'>Query: '" + docs[x].query +"' on "+ docs[x].date +"</h5>";
+        latestInfo += "<h5 style='color:#CFD8DC'>Query: '" + docs[x].query +"' on "+ docs[x].date +" with offset of "+ docs[x].offset +"</h5>";
     }
 }).then(function(){
        res.render('index',{
