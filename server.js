@@ -31,10 +31,6 @@ app.get('/',function(req,res){
    res.render('home'); 
 });
 
-app.get('/',function(req,res){
-   res.render('home'); 
-});
-
 app.get('/api/imagesearch/:query',function(req,res){
    var imgQuery = req.params.query;
    var resObj = '';
@@ -51,7 +47,7 @@ app.get('/api/imagesearch/:query',function(req,res){
            resultTitle:imgQuery,
            result:resObj
        });
-   },req.query.offset,4)
+   },req.query.offset,10)
 });
 app.get('/api/latest/imagesearch',function(req,res){
     var latestInfo = '';
