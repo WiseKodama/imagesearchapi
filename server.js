@@ -22,7 +22,6 @@ conn.once('open',function(){
   console.log('Connected to DB');
 });
 
-
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
@@ -34,8 +33,7 @@ app.get('/',function(req,res){
 app.get('/api/imagesearch/:query',function(req,res){
    var imgQuery = req.params.query;
    var resObj = '';
-   var qDate = new Date().toUTCString();
-   qLog.create({date:qDate,query:imgQuery,offset:req.query.offset},function(err,docs){
+   qLog.collection.insert({date:new Date(),query:imgQuery,offset:req.query.offset},function(err,docs){
        if(err) console.error(err);
        console.log('Added query to database');
    });
