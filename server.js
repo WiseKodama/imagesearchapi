@@ -36,7 +36,7 @@ app.get('/api/imagesearch/:query',function(req,res){
    qLog.collection.insert({date:new Date(),query:imgQuery,offset:req.query.offset},function(err,docs){
        if(err) console.error(err);
        console.log('Added query to database');
-       qLog.close();
+       conn.close();
    });
    imageSearch(imgQuery,function(data){
        for(var x=0;x<data.length;x++){
