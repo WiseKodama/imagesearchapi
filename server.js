@@ -33,11 +33,7 @@ app.get('/',function(req,res){
 app.get('/api/imagesearch/:query',function(req,res){
    var imgQuery = req.params.query;
    var resObj = '';
-   var newEntry = new qLog();
-   newEntry.date = new Date();
-   newEntry.query = imgQuery;
-   newEntry.offset = req.query.offset;
-   newEntry.save(function(err){
+   qLog.insertMany({date:new Date(),query:imgQuery,offset:req.query.offset},function(err){
        if(err) console.error(err);
        console.log('Added query to database');
    });
