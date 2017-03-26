@@ -33,10 +33,13 @@ app.get('/',function(req,res){
 app.get('/api/imagesearch/:query',function(req,res){
    var imgQuery = req.params.query;
    var resObj = '';
-   qLog.collection.insert({date:new Date(),query:imgQuery,offset:req.query.offset},function(err,docs){
+   var newEntry = new qLog();
+   newEntry.date = new Date();
+   newEntry.query = imgQuery;
+   newEntry.offset = req.query.offset;
+   newEntry.save(function(err){
        if(err) console.error(err);
        console.log('Added query to database');
-       conn.close();
    });
    imageSearch(imgQuery,function(data){
        for(var x=0;x<data.length;x++){
